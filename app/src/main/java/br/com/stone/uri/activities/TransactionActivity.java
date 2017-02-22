@@ -7,4 +7,6 @@ import com.jgabrielfreitas.layoutid.annotations.InjectLayout;
 @InjectLayout(layout = R.layout.activity_transaction)
 public class TransactionActivity extends BaseActivity {
 
+
+
 }

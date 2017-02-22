@@ -3,6 +3,7 @@ package br.com.stone.uri.adapter;
 import android.view.View;
 import android.widget.TextView;
 import br.com.stone.uri.R;
+import br.com.stone.uri.listeners.OptionsListener;
 import uk.co.ribot.easyadapter.ItemViewHolder;
 import uk.co.ribot.easyadapter.PositionInfo;
 import uk.co.ribot.easyadapter.annotations.LayoutId;
@@ -25,7 +26,19 @@ public class OptionsViewHolder extends ItemViewHolder<String> {
     super(view, item);
   }
 
-  @Override public void onSetValues(String item, PositionInfo positionInfo) {
+  @Override public void onSetValues(final String item, PositionInfo positionInfo) {
     optionTextView.setText(item);
+
+    optionTextView.setOnClickListener(new View.OnClickListener() {
+      @Override public void onClick(View view) {
+
+        OptionsListener listener = getListener(OptionsListener.class);
+        if (listener != null) {
+          listener.optionClicked(item);
+        }
+
+      }
+    });
+
   }
 }
