@@ -1,7 +1,8 @@
-package br.com.stone.uri;
+package br.com.stone.uri.activities;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import br.com.stone.uri.R;
 import br.com.stone.uri.adapter.OptionsViewHolder;
 import butterknife.Bind;
 import com.jgabrielfreitas.core.activity.BaseActivity;
