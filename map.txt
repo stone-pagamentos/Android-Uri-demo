@@ -9,7 +9,7 @@ stone://home/cancel
 Parâmetros:
 Enviar uma transação:
 
-ID            = Stone Code
+ID            = Stone Code // not necessary
 PaymentType   = Debit/Credit
 Amount        = Valor da Transação
 Installments  = Parcelas

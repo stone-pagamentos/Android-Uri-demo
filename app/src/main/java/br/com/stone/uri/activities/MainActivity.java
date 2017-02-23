@@ -21,6 +21,7 @@ public class MainActivity extends BaseActivity implements OptionsListener{
 
   @Override protected void onStart() {
     super.onStart();
+    killAfterIntent = false;
 
     options.add("Nova transação");
     options.add("Lista de transações");
@@ -35,6 +36,7 @@ public class MainActivity extends BaseActivity implements OptionsListener{
     switch (clicked) {
 
       case "Nova transação":
+        doIntent(TransactionActivity.class);
         break;
 
       case "Lista de transações":
