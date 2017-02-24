@@ -6,6 +6,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Spinner;
+import android.widget.Toast;
 import br.com.stone.uri.R;
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -16,6 +17,7 @@ import static android.R.layout.simple_spinner_dropdown_item;
 import static android.R.layout.simple_spinner_item;
 import static android.content.Intent.ACTION_VIEW;
 import static br.com.stone.uri.R.array.installment;
+import static java.lang.String.valueOf;
 import static java.util.UUID.randomUUID;
 
 @InjectLayout(layout = R.layout.activity_transaction)
@@ -32,16 +34,17 @@ public class TransactionActivity extends BaseActivity {
         configureSpinner();
     }
 
-    @OnClick(R.id.buttonSendTransaction)
-    public void sendTransaction() {
+    @OnClick(R.id.buttonSendTransaction) public void sendTransaction() {
 
         Uri.Builder transactionUri = new Uri.Builder();
         transactionUri.scheme("stone");
         transactionUri.authority("pay");
         transactionUri.appendQueryParameter("transactionId", randomUUID().toString());
-        transactionUri.appendQueryParameter("paymentType", (debitRadioButton.isChecked()) ? "DEBIT" : "CREDIT");
+        transactionUri.appendQueryParameter("paymentType",(debitRadioButton.isChecked()) ? "DEBIT" : "CREDIT");
         transactionUri.appendQueryParameter("amount", editTextValue.getText().toString());
-        transactionUri.appendQueryParameter("installments", String.valueOf(installmentSpinner.getSelectedItemPosition() + 1));
+        transactionUri.appendQueryParameter("yourScheme", "demoUri");
+        transactionUri.appendQueryParameter("yourHost", "demoHost");
+        transactionUri.appendQueryParameter("installments", valueOf(installmentSpinner.getSelectedItemPosition() + 1));
 
         Intent intent = new Intent(ACTION_VIEW);
         intent.setDataAndType(transactionUri.build(), "text/plain");
@@ -52,5 +55,10 @@ public class TransactionActivity extends BaseActivity {
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, installment, simple_spinner_item);
         adapter.setDropDownViewResource(simple_spinner_dropdown_item);
         installmentSpinner.setAdapter(adapter);
+    }
+
+    @Override protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Toast.makeText(this, "Callback done", Toast.LENGTH_SHORT).show();
     }
 }
