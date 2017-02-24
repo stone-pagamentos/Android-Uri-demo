@@ -18,5 +18,5 @@ transactionId = Id da transação
 Retorno de uma transação:
 WasApproved            = True se transação foi aprovada, False se não.
 ResponseCode           = Código do erro.
-ResponseReason         =  Mensagem de erro.
+ResponseReason         = Mensagem de erro.
 AcquirerTransactionKey = Identificador único definido pelo autorizador para a transação.

@@ -12,7 +12,10 @@ import butterknife.OnClick;
 import com.jgabrielfreitas.core.activity.BaseActivity;
 import com.jgabrielfreitas.layoutid.annotations.InjectLayout;
 
+import static android.R.layout.simple_spinner_dropdown_item;
+import static android.R.layout.simple_spinner_item;
 import static android.content.Intent.ACTION_VIEW;
+import static br.com.stone.uri.R.array.installment;
 import static java.util.UUID.randomUUID;
 
 @InjectLayout(layout = R.layout.activity_transaction)
@@ -34,7 +37,7 @@ public class TransactionActivity extends BaseActivity {
 
         Uri.Builder transactionUri = new Uri.Builder();
         transactionUri.scheme("stone");
-        transactionUri.authority("transaction");
+        transactionUri.authority("pay");
         transactionUri.appendQueryParameter("transactionId", randomUUID().toString());
         transactionUri.appendQueryParameter("paymentType", (debitRadioButton.isChecked()) ? "DEBIT" : "CREDIT");
         transactionUri.appendQueryParameter("amount", editTextValue.getText().toString());
@@ -46,8 +49,8 @@ public class TransactionActivity extends BaseActivity {
     }
 
     private void configureSpinner() {
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.installment, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, installment, simple_spinner_item);
+        adapter.setDropDownViewResource(simple_spinner_dropdown_item);
         installmentSpinner.setAdapter(adapter);
     }
 }
