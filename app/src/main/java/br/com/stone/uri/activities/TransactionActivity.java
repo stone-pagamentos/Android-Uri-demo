@@ -3,21 +3,14 @@ package br.com.stone.uri.activities;
 import android.content.Intent;
 import android.net.Uri;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.Spinner;
-
 import br.com.stone.uri.R;
 import butterknife.Bind;
 import butterknife.OnClick;
-
 import com.jgabrielfreitas.core.activity.BaseActivity;
 import com.jgabrielfreitas.layoutid.annotations.InjectLayout;
-
-import java.util.StringTokenizer;
-import java.util.UUID;
 
 import static android.content.Intent.ACTION_VIEW;
 import static java.util.UUID.randomUUID;
