@@ -41,4 +41,10 @@ import com.activeandroid.annotation.Table;
   public String getAcquirerTransactionKey() {
     return acquirerTransactionKey;
   }
+
+  public void updateStatus(boolean newStatus) {
+    this.wasApproved = newStatus;
+    save();
+  }
+
 }
