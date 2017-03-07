@@ -8,6 +8,9 @@ import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 import br.com.stone.uri.R;
+import br.com.stone.uri.code.Response;
+import br.com.stone.uri.code.UriResponseCode;
+import br.com.stone.uri.database.Transaction;
 import butterknife.Bind;
 import butterknife.OnClick;
 import com.jgabrielfreitas.core.activity.BaseActivity;
@@ -17,6 +20,8 @@ import static android.R.layout.simple_spinner_dropdown_item;
 import static android.R.layout.simple_spinner_item;
 import static android.content.Intent.ACTION_VIEW;
 import static br.com.stone.uri.R.array.installment;
+import static br.com.stone.uri.code.UriResponseCode.ABORTED;
+import static br.com.stone.uri.code.UriResponseCode.CANCELED;
 import static java.lang.String.valueOf;
 import static java.util.UUID.randomUUID;
 
@@ -60,9 +65,10 @@ public class TransactionActivity extends BaseActivity {
     @Override protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-      if (resultCode == 99) {
-        Toast.makeText(this, "Callback done", Toast.LENGTH_SHORT).show();
-      }
-
+        if (data != null && data.getData() != null) {
+            Response response = new Response(data.getData());
+            Toast.makeText(this, response.getResponseReason(), Toast.LENGTH_SHORT).show();
+            new Transaction(response).save();
+        }
     }
 }

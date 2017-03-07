@@ -40,6 +40,7 @@ public class MainActivity extends BaseActivity implements OptionsListener{
         break;
 
       case "Lista de transações":
+        doIntent(ListTransactionsActivity.class);
         break;
 
     }

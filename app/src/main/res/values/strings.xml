@@ -30,4 +30,5 @@
     <item>11</item>
     <item>12</item>
   </string-array>
+  <string name="title_activity_list_transcations">ListTranscationsActivity</string>
 </resources>
