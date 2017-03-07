@@ -2,7 +2,6 @@ package br.com.stone.uri.activities;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.widget.Toast;
 import br.com.stone.uri.R;
 import br.com.stone.uri.adapter.OptionsViewHolder;
 import br.com.stone.uri.listeners.OptionsListener;
@@ -19,16 +18,17 @@ public class MainActivity extends BaseActivity implements OptionsListener{
   @Bind(R.id.optionsRecyclerView) RecyclerView optionsRecyclerView;
   List<String> options = new ArrayList<>();
 
-  @Override protected void onStart() {
-    super.onStart();
+  @Override protected void modifyViews() {
+    super.modifyViews();
     killAfterIntent = false;
 
-    options.add("Nova transação");
-    options.add("Lista de transações");
-
-    optionsRecyclerView.setHasFixedSize(true);
-    optionsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-    optionsRecyclerView.setAdapter(new EasyRecyclerAdapter<>(this, OptionsViewHolder.class, options, this));
+    if (optionsRecyclerView.getAdapter() == null) {
+      options.add("Nova transação");
+      options.add("Lista de transações");
+      optionsRecyclerView.setHasFixedSize(true);
+      optionsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+      optionsRecyclerView.setAdapter(new EasyRecyclerAdapter<>(this, OptionsViewHolder.class, options, this));
+    }
   }
 
   @Override public void optionClicked(String clicked) {
@@ -42,8 +42,6 @@ public class MainActivity extends BaseActivity implements OptionsListener{
       case "Lista de transações":
         doIntent(ListTransactionsActivity.class);
         break;
-
     }
-
   }
 }
