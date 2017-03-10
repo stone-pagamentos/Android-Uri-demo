@@ -50,6 +50,7 @@ public class TransactionActivity extends BaseActivity {
         transactionUri.appendQueryParameter("yourScheme", "demoUri");
         transactionUri.appendQueryParameter("yourHost", "demoHost");
         transactionUri.appendQueryParameter("installments", valueOf(installmentSpinner.getSelectedItemPosition() + 1));
+        transactionUri.appendQueryParameter("autoConfirm", "true"); // true = automatically | false = user needs to confirmation
 
         Intent intent = new Intent(ACTION_VIEW);
         intent.setDataAndType(transactionUri.build(), "text/plain");
@@ -69,6 +70,7 @@ public class TransactionActivity extends BaseActivity {
             Response response = new Response(data.getData());
             Toast.makeText(this, response.getResponseReason(), Toast.LENGTH_SHORT).show();
             new Transaction(response).save();
+            killThisActivity();
         }
     }
 }

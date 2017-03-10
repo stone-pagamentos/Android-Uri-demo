@@ -1,10 +1,6 @@
-Pagamento:
 
-stone://home/pay
-
-Cancelamento:
-
-stone://home/cancel
+Pagamento: stone://pay
+Cancelamento: stone://cancel
 
 Parâmetros:
 Enviar uma transação:
