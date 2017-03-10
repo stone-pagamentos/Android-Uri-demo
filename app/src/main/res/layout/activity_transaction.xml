@@ -19,9 +19,11 @@
       android:id="@+id/editTextValue"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_alignBaseline="@+id/textViewValue"
-      android:layout_alignTop="@+id/textViewValue"
+      android:layout_toEndOf="@+id/textViewValue"
       android:layout_toRightOf="@+id/textViewValue"
+      android:layout_alignBottom="@+id/textViewValue"
+      android:layout_marginTop="2dp"
+      android:layout_marginLeft="5dp"
       android:hint="@string/transaction_enter_value"
       android:inputType="number" >
 
@@ -32,7 +34,7 @@
       android:id="@+id/radioGroupDebitCredit"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_below="@+id/editTextValue"
+      android:layout_below="@+id/textViewValue"
       android:layout_marginTop="20dp" >
 
     <RadioButton
