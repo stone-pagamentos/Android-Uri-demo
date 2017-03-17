@@ -43,7 +43,7 @@ public class TransactionActivity extends BaseActivity {
 
         Uri.Builder transactionUri = new Uri.Builder();
         transactionUri.scheme("stone");
-        transactionUri.authority("pay");
+        transactionUri.authority("payment");
         transactionUri.appendQueryParameter("transactionId", randomUUID().toString());
         transactionUri.appendQueryParameter("paymentId", randomUUID().toString());
         transactionUri.appendQueryParameter("paymentType",(debitRadioButton.isChecked()) ? "DEBIT" : "CREDIT");

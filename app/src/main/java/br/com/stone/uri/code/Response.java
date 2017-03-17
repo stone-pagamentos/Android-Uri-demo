@@ -22,7 +22,7 @@ public class Response {
   }
 
   public String getAcquirerTransactionKey() {
-    return responseUri.getQueryParameter("AcquirerTransactionKey");
+    return responseUri.getQueryParameter("paymentId");
   }
 
   public String getResponseReason() {
