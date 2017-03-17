@@ -45,10 +45,10 @@ public class TransactionActivity extends BaseActivity {
         transactionUri.scheme("stone");
         transactionUri.authority("pay");
         transactionUri.appendQueryParameter("transactionId", randomUUID().toString());
+        transactionUri.appendQueryParameter("paymentId", randomUUID().toString());
         transactionUri.appendQueryParameter("paymentType",(debitRadioButton.isChecked()) ? "DEBIT" : "CREDIT");
         transactionUri.appendQueryParameter("amount", editTextValue.getText().toString());
-        transactionUri.appendQueryParameter("yourScheme", "demoUri");
-        transactionUri.appendQueryParameter("yourHost", "demoHost");
+        transactionUri.appendQueryParameter("scheme", "demoUri");
         transactionUri.appendQueryParameter("installments", valueOf(installmentSpinner.getSelectedItemPosition() + 1));
         transactionUri.appendQueryParameter("autoConfirm", "true"); // true = automatically | false = user needs to confirmation
 

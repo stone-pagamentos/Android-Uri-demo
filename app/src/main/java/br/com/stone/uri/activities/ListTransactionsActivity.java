@@ -46,8 +46,8 @@ import static java.lang.String.valueOf;
     // create a new URI to request a cancel
     Uri.Builder transactionUri = new Uri.Builder();
     transactionUri.scheme("stone");
-    transactionUri.authority("cancel");
-    transactionUri.appendQueryParameter("AcquirerTransactionKey", transaction.getAcquirerTransactionKey());
+    transactionUri.authority("payment-reversal");
+    transactionUri.appendQueryParameter("paymentId", transaction.getAcquirerTransactionKey());
 
     Intent intent = new Intent(ACTION_VIEW);
     intent.setDataAndType(transactionUri.build(), "text/plain");
