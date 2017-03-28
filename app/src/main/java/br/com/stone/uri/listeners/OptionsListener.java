@@ -6,6 +6,6 @@ package br.com.stone.uri.listeners;
 
 public interface OptionsListener {
 
-  void optionClicked(String clicked);
+    void optionClicked(String clicked);
 
 }

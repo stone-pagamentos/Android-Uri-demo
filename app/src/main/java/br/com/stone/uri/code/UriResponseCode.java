@@ -6,15 +6,15 @@ package br.com.stone.uri.code;
 
 public class UriResponseCode {
 
-  // everything OK
-  // request ok and response ok,
-  // but the transaction can be denied or approved
-  public static final int OK = 0;
+    // everything OK
+    // request ok and response ok,
+    // but the transaction can be denied or approved
+    public static final int OK = 0;
 
-  // cancel button pressed
-  public static final int CANCELED = 1;
+    // cancel button pressed
+    public static final int CANCELED = 1;
 
-  // back button pressed
-  public static final int ABORTED = 3;
+    // back button pressed
+    public static final int ABORTED = 3;
 
 }
