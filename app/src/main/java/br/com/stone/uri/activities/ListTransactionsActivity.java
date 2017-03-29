@@ -2,8 +2,10 @@ package br.com.stone.uri.activities;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.activeandroid.query.Select;
 import com.jgabrielfreitas.core.activity.BaseActivity;
@@ -23,8 +25,9 @@ import static java.lang.String.format;
 
 @InjectLayout(layout = R.layout.activity_list_transcations)
 public class ListTransactionsActivity extends BaseActivity {
-
+    private static final String TAG = "ListTransactionsActivit";
     private static final int CANCELLATION_RESULT = 10;
+
     @Bind(R.id.transactionsListView) ListView transactionsListView;
     List<Transaction> transactions = new Select().from(Transaction.class).execute();
 
@@ -35,7 +38,7 @@ public class ListTransactionsActivity extends BaseActivity {
         ArrayList<String> transactionsAsString = new ArrayList<>();
 
         for (Transaction transaction : transactions)
-            transactionsAsString.add(format("ATK: %s\nStatus: %s", transaction.getAcquirerTransactionKey(), (transaction.isWasApproved()) ? "Aprovada" : "Negada"));
+            transactionsAsString.add(format("ATK: %s\nStatus: %s", transaction.getPaymentId(), (transaction.getResponseCode() != null && transaction.getResponseCode() == 0) ? "Aprovada" : "Negada"));
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, android.R.id.text1, transactionsAsString);
         transactionsListView.setAdapter(adapter);
@@ -51,7 +54,8 @@ public class ListTransactionsActivity extends BaseActivity {
         Uri.Builder transactionUri = new Uri.Builder();
         transactionUri.scheme("stone");
         transactionUri.authority("payment-reversal");
-        transactionUri.appendQueryParameter("paymentId", transaction.getAcquirerTransactionKey());
+        transactionUri.appendQueryParameter("paymentId", transaction.getPaymentId());
+        transactionUri.appendQueryParameter("acquirerId", "123456789");
 
         Intent intent = new Intent(ACTION_VIEW);
         intent.setDataAndType(transactionUri.build(), "text/plain");
@@ -63,12 +67,16 @@ public class ListTransactionsActivity extends BaseActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (data != null && data.getData() != null) {
             Response response = new Response(data.getData());
-            for (Transaction transaction : transactions)
-                if (transaction.getAcquirerTransactionKey().equals(response.getAcquirerTransactionKey())) {
-                    transaction.updateStatus(response.wasApproved());
+            Log.d(TAG, "onActivityResult() called with: requestCode = [" + requestCode + "], resultCode = [" + resultCode + "], data = [" + data.getData().toString() + "]");
+            Toast.makeText(this, response.getReason(), Toast.LENGTH_SHORT).show();
+            for (Transaction transaction : transactions) {
+                if (transaction.getPaymentId().equals(response.getPaymentId())) {
+                    if (response.getResponseCode() == 0) {
+                        transaction.updateStatus(response.getResponseCode());
+                    }
                     killThisActivity();
-                    break;
                 }
+            }
         }
     }
 

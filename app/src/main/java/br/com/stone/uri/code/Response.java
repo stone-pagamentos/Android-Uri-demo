@@ -2,8 +2,6 @@ package br.com.stone.uri.code;
 
 import android.net.Uri;
 
-import static java.lang.Boolean.parseBoolean;
-
 /**
  * Created by JGabrielFreitas on 06/03/17.
  */
@@ -16,13 +14,16 @@ public class Response {
         this.responseUri = responseUri;
     }
 
-    public boolean wasApproved() {
-        String wasApproved = responseUri.getQueryParameter("WasApproved");
-        return wasApproved != null && parseBoolean(wasApproved);
+    public String getPaymentId() {
+        return responseUri.getQueryParameter("paymentId");
     }
 
-    public String getAcquirerTransactionKey() {
-        return responseUri.getQueryParameter("paymentId");
+    public String getAcquirerTid() {
+        return responseUri.getQueryParameter("acquirerTid");
+    }
+
+    public String getAcquirerAuthorizationCode() {
+        return responseUri.getQueryParameter("acquirerAuthorizationCode");
     }
 
     public String getReason() {
@@ -30,7 +31,7 @@ public class Response {
     }
 
     public Integer getResponseCode() {
-        String responseCode = responseUri.getQueryParameter("ResponseCode");
+        String responseCode = responseUri.getQueryParameter("responsecode");
         return (responseCode != null) ? Integer.parseInt(responseCode) : null;
     }
 

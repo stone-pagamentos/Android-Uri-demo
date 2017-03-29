@@ -13,26 +13,24 @@ import br.com.stone.uri.code.Response;
 @Table(name = "Transactions")
 public class Transaction extends Model {
 
-    @Column(name = "wasApproved") private boolean wasApproved;
+    @Column(name = "paymentId") private String paymentId;
+    @Column(name = "acquirerTid") private String acquirerTid;
     @Column(name = "responseCode") private Integer responseCode;
     @Column(name = "responseReason") private String responseReason;
-    @Column(name = "acquirerTransactionKey") private String acquirerTransactionKey;
+    @Column(name = "acquirerAuthorizationCode") private String acquirerAuthorizationCode;
 
     public Transaction() {
     }
 
     public Transaction(Response response) {
-        this.wasApproved = response.wasApproved();
-        this.responseCode = response.getResponseCode();
+        this.paymentId = response.getPaymentId();
         this.responseReason = response.getReason();
-        this.acquirerTransactionKey = response.getAcquirerTransactionKey();
+        this.acquirerTid = response.getAcquirerTid();
+        this.responseCode = response.getResponseCode();
+        this.acquirerAuthorizationCode = response.getAcquirerAuthorizationCode();
     }
 
-    public boolean isWasApproved() {
-        return wasApproved;
-    }
-
-    public int getResponseCode() {
+    public Integer getResponseCode() {
         return responseCode;
     }
 
@@ -40,12 +38,20 @@ public class Transaction extends Model {
         return responseReason;
     }
 
-    public String getAcquirerTransactionKey() {
-        return acquirerTransactionKey;
+    public String getPaymentId() {
+        return paymentId;
     }
 
-    public void updateStatus(boolean newStatus) {
-        this.wasApproved = newStatus;
+    public String getAcquirerTid() {
+        return acquirerTid;
+    }
+
+    public String getAcquirerAuthorizationCode() {
+        return acquirerAuthorizationCode;
+    }
+
+    public void updateStatus(int responseCode) {
+        this.responseCode = responseCode;
         save();
     }
 

@@ -29,9 +29,13 @@ import static java.util.UUID.randomUUID;
 public class TransactionActivity extends BaseActivity {
 
     private static final String TAG = "TransactionActivity";
-    @Bind(R.id.editTextValue) EditText editTextValue;
-    @Bind(R.id.radioDebit) RadioButton debitRadioButton;
-    @Bind(R.id.spinnerInstallments) Spinner installmentSpinner;
+
+    @Bind(R.id.editTextValue)
+    EditText editTextValue;
+    @Bind(R.id.radioDebit)
+    RadioButton debitRadioButton;
+    @Bind(R.id.spinnerInstallments)
+    Spinner installmentSpinner;
     int TRANSACTION_RESULT = 10;
 
     @Override
@@ -42,17 +46,19 @@ public class TransactionActivity extends BaseActivity {
 
     @OnClick(R.id.buttonSendTransaction)
     public void sendTransaction() {
-
         Uri.Builder transactionUri = new Uri.Builder();
         transactionUri.scheme("stone");
         transactionUri.authority("payment");
+        transactionUri.appendQueryParameter("acquirerId", "846873720");
+        transactionUri.appendQueryParameter("taxes", "true");
+//        transactionUri.appendQueryParameter("acquirerId", "234556789");
         transactionUri.appendQueryParameter("transactionId", randomUUID().toString());
         transactionUri.appendQueryParameter("paymentId", randomUUID().toString());
         transactionUri.appendQueryParameter("paymentType", (debitRadioButton.isChecked()) ? "DEBIT" : "CREDIT");
         transactionUri.appendQueryParameter("amount", editTextValue.getText().toString());
         transactionUri.appendQueryParameter("scheme", "demoUri");
         transactionUri.appendQueryParameter("installments", valueOf(installmentSpinner.getSelectedItemPosition() + 1));
-        transactionUri.appendQueryParameter("autoConfirm", "true"); // true = automatically | false = user needs to confirmation
+        transactionUri.appendQueryParameter("autoConfirm", "true"); // true = automatically | false = user needs to confirm
 
         Intent intent = new Intent(ACTION_VIEW);
         intent.setDataAndType(transactionUri.build(), "text/plain");
