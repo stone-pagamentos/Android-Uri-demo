@@ -53,17 +53,12 @@ public class ListTransactionsActivity extends BaseActivity {
 
     @OnItemClick(R.id.transactionsListView)
     public void onTransactionClicked(int position) {
-
-        // get transaction from view
-        Transaction transaction = new Select().from(Transaction.class).where("ID = ?", position + 1).executeSingle();
-
         // create a new URI to request a cancel
         Uri.Builder transactionUri = new Uri.Builder();
         transactionUri.scheme("stone");
         transactionUri.authority("payment-reversal");
-        transactionUri.appendQueryParameter("paymentId", transaction.getPaymentId());
+        transactionUri.appendQueryParameter("paymentId", transactions.get(position).getPaymentId());
         transactionUri.appendQueryParameter("acquirerId", "123456789");
-
         Intent intent = new Intent(ACTION_VIEW);
         intent.setDataAndType(transactionUri.build(), "text/plain");
         startActivityForResult(intent, CANCELLATION_RESULT);
