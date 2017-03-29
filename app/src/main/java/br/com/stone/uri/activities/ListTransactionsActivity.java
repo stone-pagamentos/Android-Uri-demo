@@ -13,6 +13,7 @@ import com.jgabrielfreitas.layoutid.annotations.InjectLayout;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import br.com.stone.uri.R;
 import br.com.stone.uri.code.Response;
@@ -37,8 +38,14 @@ public class ListTransactionsActivity extends BaseActivity {
 
         ArrayList<String> transactionsAsString = new ArrayList<>();
 
-        for (Transaction transaction : transactions)
-            transactionsAsString.add(format("ATK: %s\nStatus: %s", transaction.getPaymentId(), (transaction.getResponseCode() != null && transaction.getResponseCode() == 0) ? "Aprovada" : "Negada"));
+        for (Transaction transaction : transactions) {
+            transactionsAsString.add(format(new Locale("pt", "BR"), "ITK: %s\nATK: %s\nCode: %d\nReason: %s",
+                    transaction.getPaymentId(),
+                    transaction.getAcquirerAuthorizationCode(),
+                    transaction.getResponseCode(),
+                    transaction.getResponseReason()
+            ));
+        }
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, android.R.id.text1, transactionsAsString);
         transactionsListView.setAdapter(adapter);

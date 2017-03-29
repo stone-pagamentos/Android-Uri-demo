@@ -9,7 +9,8 @@
   <string name="transaction_sight">A Vista</string>
   <string name="transaction_installment">Parcelado</string>
   <string name="transaction_issuer">Parcelado emissor</string>
-  <string name="transaction_no_installments">Nº de parcelas</string>
+  <string name="transaction_no_installments">Parcelas</string>
+  <string name="transaction_interest">Juros?</string>
 
   <string-array name="transactionType">
     <item>Débito</item>
