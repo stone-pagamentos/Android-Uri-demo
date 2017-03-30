@@ -58,6 +58,7 @@ public class HistoryFragment extends BaseFragment {
         Uri.Builder transactionUri = new Uri.Builder();
         transactionUri.scheme("stone");
         transactionUri.authority("payment-reversal");
+        transactionUri.appendQueryParameter("scheme", "demoUri");
         transactionUri.appendQueryParameter("paymentId", transactions.get(position).getPaymentId());
         transactionUri.appendQueryParameter("acquirerId", SharedPreferencesManager.newInstance(getContext()).getStoneCode());
         Intent intent = new Intent(ACTION_VIEW);

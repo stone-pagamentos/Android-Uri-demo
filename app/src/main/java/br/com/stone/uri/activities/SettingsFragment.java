@@ -45,7 +45,7 @@ public class SettingsFragment extends BaseFragment {
         transactionUri.scheme("stone");
         transactionUri.authority("configuration");
         transactionUri.appendQueryParameter("acquirerId", stoneCodeEditText.getText().toString());
-        transactionUri.appendQueryParameter("scheme", "demouri");
+        transactionUri.appendQueryParameter("scheme", "demoUri");
         Intent intent = new Intent(ACTION_VIEW);
         intent.setDataAndType(transactionUri.build(), "text/plain");
         startActivityForResult(intent, CONFIG_RESULT);
