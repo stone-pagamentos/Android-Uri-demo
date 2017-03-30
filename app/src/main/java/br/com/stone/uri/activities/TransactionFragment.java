@@ -10,12 +10,13 @@ import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.Toast;
 
-import com.jgabrielfreitas.core.activity.BaseActivity;
+import com.jgabrielfreitas.core.fragment.BaseFragment;
 import com.jgabrielfreitas.layoutid.annotations.InjectLayout;
 
 import br.com.stone.uri.R;
 import br.com.stone.uri.code.Response;
 import br.com.stone.uri.database.Transaction;
+import br.com.stone.uri.support.SharedPreferencesManager;
 import butterknife.Bind;
 import butterknife.OnClick;
 
@@ -26,10 +27,10 @@ import static br.com.stone.uri.R.array.installment;
 import static java.lang.String.valueOf;
 import static java.util.UUID.randomUUID;
 
-@InjectLayout(layout = R.layout.activity_transaction)
-public class TransactionActivity extends BaseActivity {
+@InjectLayout(layout = R.layout.fragment_transaction)
+public class TransactionFragment extends BaseFragment {
 
-    private static final String TAG = "TransactionActivity";
+    private static final String TAG = "TransactionFragment";
 
     @Bind(R.id.editTextValue)
     EditText editTextValue;
@@ -49,7 +50,7 @@ public class TransactionActivity extends BaseActivity {
     }
 
     private void configureSpinner() {
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, installment, simple_spinner_item);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(), installment, simple_spinner_item);
         adapter.setDropDownViewResource(simple_spinner_dropdown_item);
         installmentSpinner.setAdapter(adapter);
     }
@@ -59,7 +60,7 @@ public class TransactionActivity extends BaseActivity {
         Uri.Builder transactionUri = new Uri.Builder()
                 .scheme("stone")
                 .authority("payment")
-                .appendQueryParameter("acquirerId", "846873720")
+                .appendQueryParameter("acquirerId", SharedPreferencesManager.newInstance(getContext()).getStoneCode())
                 .appendQueryParameter("taxes", Boolean.toString(interestSwitch.isChecked()))
                 .appendQueryParameter("transactionId", randomUUID().toString())
                 .appendQueryParameter("paymentId", randomUUID().toString())
@@ -76,14 +77,13 @@ public class TransactionActivity extends BaseActivity {
 
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (data != null && data.getData() != null) {
             Log.d(TAG, data.toUri(0));
             Response response = new Response(data.getData());
-            Toast.makeText(this, response.getReason(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), response.getReason(), Toast.LENGTH_SHORT).show();
             new Transaction(response).save();
-            killThisActivity();
         }
     }
 }

@@ -1,49 +1,48 @@
 package br.com.stone.uri.activities;
 
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.view.MenuItem;
 
 import com.jgabrielfreitas.core.activity.BaseActivity;
+import com.jgabrielfreitas.core.fragment.BaseFragment;
 import com.jgabrielfreitas.layoutid.annotations.InjectLayout;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import br.com.stone.uri.R;
-import br.com.stone.uri.adapter.OptionsViewHolder;
-import br.com.stone.uri.listeners.OptionsListener;
-import butterknife.Bind;
-import uk.co.ribot.easyadapter.EasyRecyclerAdapter;
 
 @InjectLayout(layout = R.layout.activity_main)
-public class MainActivity extends BaseActivity implements OptionsListener {
+public class MainActivity extends BaseActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
-    @Bind(R.id.optionsRecyclerView) RecyclerView optionsRecyclerView;
-    List<String> options = new ArrayList<>();
+    private FragmentManager fragmentManager = getSupportFragmentManager();
+    private BaseFragment fragment = new SettingsFragment();
 
     @Override
-    protected void modifyViews() {
-        super.modifyViews();
-        killAfterIntent = false;
-
-        if (optionsRecyclerView.getAdapter() == null) {
-            options.add("Nova transação");
-            options.add("Lista de transações");
-            optionsRecyclerView.setHasFixedSize(true);
-            optionsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-            optionsRecyclerView.setAdapter(new EasyRecyclerAdapter<>(this, OptionsViewHolder.class, options, this));
-        }
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        navigation.setOnNavigationItemSelectedListener(this);
+        fragmentManager.beginTransaction().add(R.id.fragment_container, fragment).commit();
     }
 
     @Override
-    public void optionClicked(String clicked) {
-        switch (clicked) {
-            case "Nova transação":
-                doIntent(TransactionActivity.class);
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.navigation_settings:
+                fragment = new SettingsFragment();
                 break;
-            case "Lista de transações":
-                doIntent(ListTransactionsActivity.class);
+            case R.id.navigation_transaction:
+                fragment = new TransactionFragment();
+                break;
+            case R.id.navigation_history:
+                fragment = new HistoryFragment();
                 break;
         }
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.replace(R.id.fragment_container, fragment).commit();
+        return true;
     }
 }

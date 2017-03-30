@@ -9,14 +9,23 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.MainActivity">
+
+        <meta-data
+            android:name="AA_DB_NAME"
+            android:value="transactionsDB" />
+        <meta-data
+            android:name="AA_DB_VERSION"
+            android:value="1" />
+
+        <activity
+            android:name=".activities.MainActivity"
+            android:label="@string/title_activity_main">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity android:name=".activities.TransactionActivity">
+
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -29,17 +38,6 @@
                     android:scheme="demoUri" />
             </intent-filter>
         </activity>
-
-        <meta-data
-            android:name="AA_DB_NAME"
-            android:value="transactionsDB" />
-        <meta-data
-            android:name="AA_DB_VERSION"
-            android:value="1" />
-
-        <activity
-            android:name=".activities.ListTransactionsActivity"
-            android:label="@string/title_activity_list_transcations" />
     </application>
 
 </manifest>

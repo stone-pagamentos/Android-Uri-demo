@@ -10,6 +10,7 @@ android {
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
+        vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
         release {
@@ -20,19 +21,16 @@ android {
 }
 
 dependencies {
-
-    compile 'com.android.support:appcompat-v7:25.3.0'
-
     // activities and flow
     compile('com.github.jgabrielfreitas:Bases:0.0.1') {
         exclude group: 'com.android.support', module: 'appcompat-v7'
     }
-
-    // ORM
+    compile 'com.android.support:appcompat-v7:25.3.0'
     compile 'com.michaelpardo:activeandroid:3.1.0-SNAPSHOT'
-
-    // recyclerview
     compile 'uk.co.ribot:easyadapter:1.5.0@aar'
     compile 'com.android.support:recyclerview-v7:25.3.0'
     compile 'pl.touk.android:bubble:1.0.0'
+    compile 'com.android.support:design:25.3.0'
+    compile 'com.android.support:support-vector-drawable:25.3.0'
+    compile 'com.android.support:support-v4:25.3.0'
 }
