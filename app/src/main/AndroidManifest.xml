@@ -10,15 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <meta-data
-            android:name="AA_DB_NAME"
-            android:value="transactionsDB" />
-        <meta-data
-            android:name="AA_DB_VERSION"
-            android:value="1" />
-
         <activity
             android:name=".activities.MainActivity"
+            android:windowSoftInputMode="adjustResize"
             android:label="@string/title_activity_main">
 
             <intent-filter>
@@ -38,6 +32,13 @@
                     android:scheme="demoUri" />
             </intent-filter>
         </activity>
+
+        <meta-data
+            android:name="AA_DB_NAME"
+            android:value="transactionsDB" />
+        <meta-data
+            android:name="AA_DB_VERSION"
+            android:value="1" />
     </application>
 
 </manifest>
