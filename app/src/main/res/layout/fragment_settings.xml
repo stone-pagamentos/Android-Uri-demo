@@ -12,13 +12,15 @@
 
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:hint="@string/hint_stone_code">
 
         <android.support.design.widget.TextInputEditText
             android:id="@+id/stoneCodeEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/hint_stone_code">
+            android:digits="1234567890"
+            android:inputType="number|numberSigned">
 
             <requestFocus />
         </android.support.design.widget.TextInputEditText>

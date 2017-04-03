@@ -54,9 +54,10 @@ public class SettingsFragment extends BaseFragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        Log.d(TAG, "onActivityResult() called with: requestCode = [" + requestCode + "], resultCode = [" + resultCode + "]");
         if (data != null && data.getData() != null) {
+            Log.d(TAG, "data = [" + data.getData().toString() + "]");
             Response response = new Response(data.getData());
-            Log.d(TAG, "onActivityResult() called with: requestCode = [" + requestCode + "], resultCode = [" + resultCode + "], data = [" + data.getData().toString() + "]");
             Toast.makeText(getContext(), response.getReason(), Toast.LENGTH_SHORT).show();
             if (response.getResponseCode() == 0) {
                 sharedPreferencesManager.setStoneCode(stoneCodeEditText.getText().toString());
