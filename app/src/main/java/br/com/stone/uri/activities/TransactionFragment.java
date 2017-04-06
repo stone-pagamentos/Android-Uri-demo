@@ -71,7 +71,7 @@ public class TransactionFragment extends BaseFragment {
                 .appendQueryParameter("autoConfirm", "true"); // true = automatically | false = user needs to confirm
 
         Intent intent = new Intent(ACTION_VIEW);
-        intent.setDataAndType(transactionUri.build(), "text/plain");
+        intent.setData(transactionUri.build());
         startActivityForResult(intent, TRANSACTION_RESULT);
     }
 

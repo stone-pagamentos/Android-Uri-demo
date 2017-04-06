@@ -62,7 +62,7 @@ public class HistoryFragment extends BaseFragment {
         transactionUri.appendQueryParameter("paymentId", transactions.get(position).getPaymentId());
         transactionUri.appendQueryParameter("acquirerId", SharedPreferencesManager.newInstance(getContext()).getStoneCode());
         Intent intent = new Intent(ACTION_VIEW);
-        intent.setDataAndType(transactionUri.build(), "text/plain");
+        intent.setData(transactionUri.build());
         startActivityForResult(intent, CANCELLATION_RESULT);
     }
 
