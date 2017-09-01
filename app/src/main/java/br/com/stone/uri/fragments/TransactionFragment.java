@@ -1,4 +1,4 @@
-package br.com.stone.uri.activities;
+package br.com.stone.uri.fragments;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -32,14 +32,10 @@ public class TransactionFragment extends BaseFragment {
 
     private static final String TAG = "TransactionFragment";
 
-    @Bind(R.id.editTextValue)
-    EditText editTextValue;
-    @Bind(R.id.radioDebit)
-    RadioButton debitRadioButton;
-    @Bind(R.id.interestSwitch)
-    Switch interestSwitch;
-    @Bind(R.id.spinnerInstallments)
-    Spinner installmentSpinner;
+    @Bind(R.id.editTextValue)       EditText editTextValue;
+    @Bind(R.id.radioDebit)          RadioButton debitRadioButton;
+    @Bind(R.id.interestSwitch)      Switch interestSwitch;
+    @Bind(R.id.spinnerInstallments) Spinner installmentSpinner;
 
     int TRANSACTION_RESULT = 10;
 
@@ -54,6 +50,24 @@ public class TransactionFragment extends BaseFragment {
         adapter.setDropDownViewResource(simple_spinner_dropdown_item);
         installmentSpinner.setAdapter(adapter);
     }
+
+    /**
+     * App request example
+     *
+     * {
+     *    acquirerProtocol: "stone",
+     *    action: "payment",
+     *    acquirerId: "954090369",
+     *    installments: 3,
+     *    paymentType: "credit",
+     *    amount: 10, // as apps esperam o valor em centavos (10 centavos)
+     *    installmentsInterestRate: "1%", (se não tiver juros, então não é nem para estar no mobileLinkingUrl)
+     *    transactionId: "1093019039",
+     *    paymentId: "1093019888",
+     *    scheme: "instore",
+     *    autoConfirm: "true"
+     * }
+     */
 
     @OnClick(R.id.buttonSendTransaction)
     public void sendTransaction() {

@@ -1,4 +1,4 @@
-package br.com.stone.uri.activities;
+package br.com.stone.uri.fragments;
 
 import android.content.Intent;
 import android.net.Uri;

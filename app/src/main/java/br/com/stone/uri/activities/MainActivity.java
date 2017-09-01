@@ -13,6 +13,9 @@ import com.jgabrielfreitas.core.fragment.BaseFragment;
 import com.jgabrielfreitas.layoutid.annotations.InjectLayout;
 
 import br.com.stone.uri.R;
+import br.com.stone.uri.fragments.HistoryFragment;
+import br.com.stone.uri.fragments.SettingsFragment;
+import br.com.stone.uri.fragments.TransactionFragment;
 
 @InjectLayout(layout = R.layout.activity_main)
 public class MainActivity extends BaseActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
