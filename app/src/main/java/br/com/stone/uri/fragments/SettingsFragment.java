@@ -17,15 +17,17 @@ import butterknife.Bind;
 import butterknife.OnClick;
 
 import static android.content.Intent.ACTION_VIEW;
+import static android.widget.Toast.LENGTH_SHORT;
+import static android.widget.Toast.makeText;
 
 @InjectLayout(layout = R.layout.fragment_settings)
 public class SettingsFragment extends BaseFragment {
     private static final int CONFIG_RESULT = 1;
     private static final String TAG = "SettingsFragment";
 
-    @Bind(R.id.stoneCodeEditText)
-    TextInputEditText stoneCodeEditText;
+    @Bind(R.id.stoneCodeEditText) TextInputEditText stoneCodeEditText;
     SharedPreferencesManager sharedPreferencesManager;
+    String stoneCode;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -41,10 +43,13 @@ public class SettingsFragment extends BaseFragment {
 
     @OnClick(R.id.saveButton)
     public void save() {
+
+        stoneCode = stoneCodeEditText.getText().toString();
+
         Uri.Builder transactionUri = new Uri.Builder();
         transactionUri.scheme("stone");
         transactionUri.authority("configuration");
-        transactionUri.appendQueryParameter("acquirerId", stoneCodeEditText.getText().toString());
+        transactionUri.appendQueryParameter("acquirerId", stoneCode);
         transactionUri.appendQueryParameter("scheme", "demoUri");
         Intent intent = new Intent(ACTION_VIEW);
         intent.setData(transactionUri.build());
@@ -58,10 +63,10 @@ public class SettingsFragment extends BaseFragment {
         if (data != null && data.getData() != null) {
             Log.d(TAG, "data = [" + data.getData().toString() + "]");
             Response response = new Response(data.getData());
-            Toast.makeText(getContext(), response.getReason(), Toast.LENGTH_SHORT).show();
+            makeText(getContext(), response.getReason(), LENGTH_SHORT).show();
             if (response.getResponseCode() == 0) {
-                sharedPreferencesManager.setStoneCode(stoneCodeEditText.getText().toString());
+                sharedPreferencesManager.setStoneCode(stoneCode);
             }
-        } else { Toast.makeText(getContext(), "no data content", Toast.LENGTH_SHORT).show();}
+        } else { makeText(getContext(), "no data content", LENGTH_SHORT).show();}
     }
 }
