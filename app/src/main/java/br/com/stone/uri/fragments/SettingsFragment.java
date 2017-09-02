@@ -62,6 +62,6 @@ public class SettingsFragment extends BaseFragment {
             if (response.getResponseCode() == 0) {
                 sharedPreferencesManager.setStoneCode(stoneCodeEditText.getText().toString());
             }
-        }
+        } else { Toast.makeText(getContext(), "no data content", Toast.LENGTH_SHORT).show();}
     }
 }
